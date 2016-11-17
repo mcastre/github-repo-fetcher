@@ -1,0 +1,33 @@
+<h1 class="title-main">Fetch My Repos, GitHub</h1>
+<button type="button" class="btn btn-primary" ng-click="home.retrieveRepo()">Get Repos for "mcastre"</button>
+<es-counter repos="home.repos"></es-counter>
+
+<section ng-if="home.repos" class="repos-list">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Search Repos</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div>
+  <ul class="list-group repos-list">
+    <li class="list-group-item" ng-repeat="repo in home.repos">
+      <div class="row">
+        <div class="col-md-11">
+          <h4>{{repo.name}}</h4>
+          <p>{{repo.description}}</p>
+          <a ng-href="{{repo.html_url}}" target="_blank">{{repo.html_url}}</a>
+          <p><span>Forks: {{repo.forks_count}}</span> <span>Stars: {{repo.stargazers_count}}</span></p>
+        </div>
+        <div class="col-md-1">
+          <div class="thumbnail">
+            <img ng-src="{{repo.owner.avatar_url}}" alt="Profile image for mcastre">
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
