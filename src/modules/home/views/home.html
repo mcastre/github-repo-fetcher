@@ -1,23 +1,31 @@
 <h1 class="title-main">Fetch My Repos, GitHub</h1>
-<button type="button" class="btn btn-primary" ng-click="home.retrieveRepo()">Get Repos for "mcastre"</button>
+<form class="form-inline">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Enter GitHub username" ng-model="home.username">
+  </div>
+  <button type="submit" class="btn btn-primary" ng-click="home.retrieveRepo(home.username)">Get Repos!</button>
+</form>
+
 <es-counter repos="home.repos"></es-counter>
 
 <section ng-if="home.repos" class="repos-list">
   <div class="row">
+    <div class="col-sm-12">
+      <p>{{filteredRepos.length}} repositories found for '{{home.username}}'</p>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-6">
-      <div class="input-group">
-        <input type="text" class="form-control">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Search Repos</button>
-        </span>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search repos..." ng-model="home.search.text">
       </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
   </div>
   <ul class="list-group repos-list">
-    <li class="list-group-item" ng-repeat="repo in home.repos">
+    <li class="list-group-item" ng-repeat="repo in (filteredRepos = (home.repos | filter: home.search.text))">
       <div class="row">
         <div class="col-md-11">
-          <h4>{{repo.name}}</h4>
+          <h><a ng-href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h4>
           <p>{{repo.description}}</p>
           <a ng-href="{{repo.html_url}}" target="_blank">{{repo.html_url}}</a>
           <p><span>Forks: {{repo.forks_count}}</span> <span>Stars: {{repo.stargazers_count}}</span></p>

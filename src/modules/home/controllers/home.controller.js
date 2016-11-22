@@ -2,10 +2,14 @@ export default class HomeController {
   constructor(GithubService) {
     'ngInject';
     this.githubService = GithubService;
+    this.search = {
+      text: ''
+    };
   }
 
-  retrieveRepo () {
-    this.repos = this.githubService.getRepos({username: 'mcastre'});
+  retrieveRepo (username) {
+    let usernameToFetch = username.toString().toLowerCase();
+    this.repos = this.githubService.getRepos({ username: usernameToFetch });
   }
 }
 
